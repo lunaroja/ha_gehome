@@ -35,6 +35,7 @@ from gehomesdk import GeAuthFailedError, GeGeneralServerError, GeNotAuthenticate
 from .const import *
 from .devices import ApplianceApi, get_appliance_api_type
 from .exceptions import HaAuthError, HaCannotConnect
+from .temperature_probe_client import GeTemperatureProbeClient
 
 PLATFORMS = [
     "binary_sensor", 
@@ -220,7 +221,7 @@ class GeHomeUpdateCoordinator(DataUpdateCoordinator):
         :param event_loop: Event loop
         :return: GeWebsocketClient
         """
-        client = GeWebsocketClient(
+        client = GeTemperatureProbeClient(
             self._username,
             self._password,
             self._region,
@@ -468,6 +469,11 @@ class GeHomeUpdateCoordinator(DataUpdateCoordinator):
         self.last_update_success = True
         self._ensure_appliance_available(appliance)
         api = self._maybe_add_appliance_api(appliance)
+        if (
+            appliance.appliance_type == ErdApplianceType.FRIDGE
+            and isinstance(self._client, GeTemperatureProbeClient)
+        ):
+            await self._client.async_request_actual_temperatures(appliance)
         if self._init_done:
             self._async_dispatch_appliances_ready([api])
         await self._async_maybe_trigger_all_ready()

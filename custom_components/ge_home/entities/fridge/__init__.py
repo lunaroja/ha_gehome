@@ -4,3 +4,4 @@ from .ge_dispenser import GeDispenser
 from .convertable_drawer_mode_options import ConvertableDrawerModeOptionsConverter
 from .ge_fridge_ice_control_switch import GeFridgeIceControlSwitch
 from .ge_kcup_switch import GeKCupSwitch
+from .ge_actual_temperature_sensor import GeActualTemperatureSensor

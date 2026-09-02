@@ -42,6 +42,7 @@ from ..entities.fridge import (
     GeFreezer,
     GeDispenser,
     ConvertableDrawerModeOptionsConverter,
+    GeActualTemperatureSensor,
     GeFridgeIceControlSwitch,
     GeKCupSwitch
 )
@@ -216,6 +217,7 @@ class FridgeApi(ApplianceApi):
         if fridge_model_info is None or fridge_model_info.has_fridge:
             fridge_entities.extend([
                 GeErdPropertySensor(self, ErdCode.CURRENT_TEMPERATURE, "fridge"),
+                GeActualTemperatureSensor(self, "0x105c", "fridge"),
                 GeFridge(self),
             ])
             if turbo_cool is not None:
@@ -269,6 +271,7 @@ class FridgeApi(ApplianceApi):
         if fridge_model_info is None or fridge_model_info.has_freezer:
             freezer_entities.extend([
                 GeErdPropertySensor(self, ErdCode.CURRENT_TEMPERATURE, "freezer"),
+                GeActualTemperatureSensor(self, "0x105d", "freezer"),
                 GeFreezer(self),
             ])
             if turbo_freeze is not None:

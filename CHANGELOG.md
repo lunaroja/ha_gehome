@@ -1,6 +1,11 @@
 
 # GE Home Appliances (SmartHQ) Changelog
 
+## 2026.8.1-dev.1
+
+- Probe the documented event-class refrigerator actual-temperature ERDs
+  (`0x105c` and `0x105d`) and expose valid readings as diagnostic sensors.
+
 ## 2026.8.0
 
 - Feature: Added per-door binary sensors for refrigerators (fridge left/right, freezer, drawer, and Fridge V2 doors)
